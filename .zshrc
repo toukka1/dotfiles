@@ -112,12 +112,21 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH="$PATH:/opt/nvim-linux64/bin"
 
+export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))
+export PATH=$JAVA_HOME/bin:$PATH
+
+export ANDROID_SDK_ROOT=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin
+export PATH=$PATH:$ANDROID_SDK_ROOT/platform-tools
+
+export PATH="$HOME/.fly/bin:$PATH"
+
 alias fd="fdfind"
 # fuzzy find in home directory
 fzf_cd_home()
 {
     local dir
-    dir=$(fd --type d --exclude .git --exclude node_modules --exclude snap . /home/touko/repos /mnt/d/files/ | fzf) && cd "$dir" || return 1
+    dir=$(fd --type d --exclude .git --exclude node_modules --exclude snap . /home/toukka/repos /mnt/d/files/ | fzf) && cd "$dir" || return 1
     zle reset-prompt  # Refresh the prompt
 }
 # Convert the function into a Zsh widget
@@ -134,3 +143,78 @@ fzf_cd_curr()
 # Convert the function into a Zsh widget
 zle -N fzf_cd_curr
 bindkey '^t' fzf_cd_curr
+tmux_thesis() {
+    local SESSION_NAME="thesis"
+
+    # Check if the session already exists
+    if tmux has-session -t $SESSION_NAME 2>/dev/null; then
+        # If inside a Tmux session, switch to the target session
+        if [ -n "$TMUX" ]; then
+            tmux switch-client -t $SESSION_NAME
+        else
+            # Attach to the existing session if outside Tmux
+            tmux attach-session -t $SESSION_NAME
+        fi
+        return 0
+    fi
+
+    # Create a new session and setup windows
+    tmux new-session -d -s $SESSION_NAME -n 'git' -c /mnt/d/files/thesis/
+
+    tmux new-window -t $SESSION_NAME:2 -n 'write' -c /mnt/d/files/thesis/
+    tmux send-keys -t $SESSION_NAME:2 'nvim thesis.tex' C-m
+
+    tmux new-window -t $SESSION_NAME:3 -n 'bib' -c /mnt/d/files/thesis/
+    tmux send-keys -t $SESSION_NAME:3 'nvim thesis.bib' C-m
+
+    tmux new-window -t $SESSION_NAME:4 -n 'misc' -c ~
+
+    tmux select-window -t $SESSION_NAME:2
+
+    # Switch to or attach to the session
+    if [ -n "$TMUX" ]; then
+        tmux switch-client -t $SESSION_NAME
+    else
+        tmux attach-session -t $SESSION_NAME
+    fi
+}
+bindkey -s '^h' 'tmux_thesis\n'
+
+tmux_dev() {
+    local SESSION_NAME="dev"
+
+    # Check if the session already exists
+    if tmux has-session -t $SESSION_NAME 2>/dev/null; then
+        # If inside a Tmux session, switch to the target session
+        if [ -n "$TMUX" ]; then
+            tmux switch-client -t $SESSION_NAME
+        else
+            # Attach to the existing session if outside Tmux
+            tmux attach-session -t $SESSION_NAME
+        fi
+        return 0
+    fi
+
+    # Create a new session and setup windows
+    tmux new-session -d -s $SESSION_NAME -n 'git' -c ~/repos/Activity-sync-app/
+
+    tmux new-window -t $SESSION_NAME:2 -n 'code' -c ~/repos/Activity-sync-app/
+    tmux send-keys -t $SESSION_NAME:2 'nvim .' C-m
+
+    tmux new-window -t $SESSION_NAME:3 -n 'run' -c ~/repos/Activity-sync-app/
+    tmux send-keys -t $SESSION_NAME:3 'yarn run start' C-m
+
+    tmux new-window -t $SESSION_NAME:4 -n 'build' -c ~/repos/Activity-sync-app/
+
+    tmux new-window -t $SESSION_NAME:5 -n 'misc' -c ~
+
+    tmux select-window -t $SESSION_NAME:1
+
+    # Switch to or attach to the session
+    if [ -n "$TMUX" ]; then
+        tmux switch-client -t $SESSION_NAME
+    else
+        tmux attach-session -t $SESSION_NAME
+    fi
+}
+bindkey -s '^k' 'tmux_dev\n'
