@@ -112,6 +112,8 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH="$PATH:/opt/nvim-linux64/bin"
 
+. "$HOME/.cargo/env"
+
 alias fd="fdfind"
 # fuzzy find in home directory
 fzf_cd_home()
