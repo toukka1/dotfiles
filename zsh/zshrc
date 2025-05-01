@@ -103,6 +103,11 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Run neofetch and display system info
+if [ -x "$(command -v neofetch)" ]; then
+  neofetch
+fi
+
 # disable cursor blinking
 echo "\e[2 q"
 
@@ -112,14 +117,14 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH="$PATH:/opt/nvim-linux64/bin"
 
-. "$HOME/.cargo/env"
+#. "$HOME/.cargo/env"
 
-alias fd="fdfind"
+#alias fd="fdfind"
 # fuzzy find in home directory
 fzf_cd_home()
 {
     local dir
-    dir=$(fd --type d --exclude .git --exclude node_modules --exclude snap . /home/touko/repos /mnt/d/files/ | fzf) && cd "$dir" || return 1
+    dir=$(fd --type d --exclude .git --exclude node_modules --exclude snap . /home/toukka | fzf) && cd "$dir" || return 1
     zle reset-prompt  # Refresh the prompt
 }
 # Convert the function into a Zsh widget
