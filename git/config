@@ -2,7 +2,7 @@
 
 [user]
     name = Touko Nurminen
-    email = touko.nurminen@gmail.com
+    email = touko.nurminen@aidian.eu
 
 [core]
     editor             = nvim
