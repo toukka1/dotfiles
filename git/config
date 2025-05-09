@@ -1,0 +1,64 @@
+# ~/.config/git/config
+
+[user]
+    name = Touko Nurminen
+    email = touko.nurminen@gmail.com
+
+[core]
+    editor             = nvim
+    autocrlf           = input
+    compression        = 6
+    whitespace         = error
+    preloadindex       = true
+
+[init]
+    defaultBranch      = main
+
+[status]
+    branch             = true
+    showStash          = true
+    showUntrackedFiles = all
+
+[diff]
+    context            = 3
+    renames            = copies
+    interHunkContext   = 10
+
+[pager]
+    diff               = diff-so-fancy | less --tabs=4 -RFX
+
+[diff-so-fancy]
+    markEmptyLines     = false
+
+[interactive]
+    diffFilter         = diff-so-fancy --patch
+    singlekey          = true
+
+[push]
+    autoSetupRemote    = true
+    default            = current
+
+[pull]
+    default            = current
+    rebase             = true
+
+[rebase]
+    autoStash          = true
+
+[log]
+    abbrevCommit       = true
+    graphColors        = blue,yellow,cyan,magenta,green,red
+
+[color "diff"]
+    meta               = black bold
+    frag               = magenta
+    context            = white
+    whitespace         = yellow reverse
+    old                = red
+
+[color "branch"]
+    current            = magenta
+    local              = default
+    remote             = yellow
+    upstream           = green
+    plain              = blue
