@@ -1,0 +1,8 @@
+# ~/.config/wofi/config
+prompt=Launch:
+width=30%
+height=40%
+hide_scroll=true
+allow_images=true
+no_actions=true
+normal_window=true

@@ -1,25 +1,72 @@
 {
-  "layer": "top",
-  "position": "top",
-  "modules-left": [],
-  "modules-center": [],
-  "modules-right": ["custom/launcher", "pulseaudio", "clock"],
+  "modules-left": ["custom/menu", "group/active-window"],
+  "modules-center": ["clock"],
+  "modules-right": ["network", "pulseaudio", "custom/shutdown"],
+  "height": 40,
 
-  "custom/launcher": {
-    "format": "",
+  "custom/menu": {
+    "format": "<b>  Menu</b>",
+    "markup": "pango",
     "tooltip": false,
-    "on-click": "wofi --show drun"
+    "on-click": "pgrep wofi >/dev/null 2>&1 && killall wofi || wofi --show drun"
+  },
+
+  "network": {
+      "format-ethernet": "<b><span foreground='#40a02b'>🌐  {ifname} </span></b>",
+      "format-wifi": "<b><span foreground='#40a02b'>ᯤ  {ifname} </span></b>",
+      "format-disconnected": "<b><span foreground='#d20f39'>🌐  Disconnected </span></b>",
+      "markup": "pango"
+  },
+
+  "custom/shutdown": {
+    "format": "<span foreground='#d20f39'>⏻</span>",
+    "on-click": "systemctl poweroff",       // Left-click shutdown
+    "on-click-right": "systemctl reboot",   // Right-click rebeoot
+    "tooltip": true,
+    "tooltip-format": "Left-click: Power off\nRight-click: Reboot"
   },
 
   "pulseaudio": {
-    "format": "🔊 {volume}%",
+    "format": "<b><span foreground='#dc8a78'>🔊 {volume}</span></b>",
+    "markup": "pango",
     "tooltip": false,
-    "on-click": "pavucontrol"
+    "on-click": "pgrep pavucontrol >/dev/null 2>&1 && killall pavucontrol || pavucontrol &"
   },
 
   "clock": {
-    "format": "{:%Y-%m-%d %H:%M}",
-    "tooltip": false,
-    "on-click": "gsimplecal"
+      "format": "<b><span foreground='#dc8a78'>   {:%H:%M   󰃭  %a %d}</span></b>",
+      "markup": "pango",
+      "rotate": 0,
+      "tooltip-format": "<tt><small>{calendar}</small></tt>",
+      "calendar": {
+          "mode": "month",
+          "format": {
+              "months": "<span color='#4c4f69'><b>{}</b></span>",
+              "days": "<span color='#4c4f69'><b>{}</b></span>",
+              "weekdays": "<span color='#4c4f69'><b>{}</b></span>",
+              "today": "<span color='#d20f39'><b>{}</b></span>"
+          }
+      }
+  },
+
+  "hyprland/workspaces": {
+      "format": "<b><span foreground='#5a5a8c'>{id}</span></b>",
+      "markup": "pango",
+      "active-only": true,
+      "show-special": false,
+      "tooltip": false
+  },
+
+  "hyprland/window": {
+      "format": "<b><span foreground='#5a5a8c'>{class}</span></b>",
+      "markup": "pango",
+  },
+
+  "group/active-window": {
+      "orientation": "horizontal",
+      "modules": [
+        "hyprland/workspaces",
+        "hyprland/window"
+      ]
   }
 }
