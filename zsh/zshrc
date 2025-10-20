@@ -18,27 +18,53 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH=$PATH:$HOME/.local/share/bob/nvim-bin
 
-alias vim="nvim"
+EXCLUDES=(--exclude .git --exclude node_modules --exclude venv --exclude __pycache__ --exclude snap --exclude .cache)
 
-# fuzzy find in home directory
+# Fuzzy find directories in home directory/key paths
 fzf_cd_home()
 {
     local dir
-    dir=$(fd --type d --exclude .git --exclude node_modules --exclude snap . /home/toukka | fzf) && cd "$dir" || return 1
-    zle reset-prompt  # Refresh the prompt
+    dir=$( ( \
+        echo "/home/toukka" && \
+        fd --type d $EXCLUDES . /home/toukka \
+        ) | fzf) && \
+        cd "$dir" || return 1
+    zle reset-prompt
 }
-# Convert the function into a Zsh widget
 zle -N fzf_cd_home
-bindkey '^f' fzf_cd_home
+bindkey '^s' fzf_cd_home
 
-# fuzzy find in current directory
+# Fuzzy find directories in current directory
 fzf_cd_curr()
 {
     local dir
-    dir=$(fd --type d --hidden . ${PWD} | fzf) && cd "$dir" || return 1
-    zle reset-prompt  # Refresh the prompt
+    dir=$( (echo "${PWD}" && fd --type d --hidden $EXCLUDES . "${PWD}") | fzf) && cd "$dir" || return 1
+    zle reset-prompt
 }
-# Convert the function into a Zsh widget
 zle -N fzf_cd_curr
 bindkey '^t' fzf_cd_curr
+
+# Fuzzy find files in home/key paths
+fzf_file_home_cd() {
+    local file
+    file=$(fd --type f $EXCLUDES . /home/toukka | fzf) || return 1
+    if [ -n "$file" ]; then
+        cd "$(dirname "$file")"
+    fi
+    zle reset-prompt
+}
+zle -N fzf_file_home_cd
+bindkey '^g' fzf_file_home_cd
+
+# Fuzzy find files in current dir
+fzf_file_curr_cd() {
+    local file
+    file=$( (echo "${PWD}" && fd --type f --hidden $EXCLUDES . "${PWD}") | fzf) || return 1
+    if [ -n "$file" ]; then
+        cd "$(dirname "$file")"
+    fi
+    zle reset-prompt
+}
+zle -N fzf_file_curr_cd
+bindkey '^f' fzf_file_curr_cd
 
