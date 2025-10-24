@@ -9,6 +9,6 @@ mkdir -p ~/.config/hypr && ln -sf ~/dotfiles/hyprland/hyprpaper.conf ~/.config/h
 mkdir -p ~/.config/kitty && ln -sf ~/dotfiles/kitty/kitty.conf ~/.config/kitty/kitty.conf
 mkdir -p ~/.config/waybar && ln -sf ~/dotfiles/waybar/waybarconfig ~/.config/waybar/config
 mkdir -p ~/.config/waybar && ln -sf ~/dotfiles/waybar/waybarstyle.css ~/.config/waybar/style.css
-mkdir -p ~/.config/git && ln -sf ~/.dotfiles/git/config ~/.config/git/config
+mkdir -p ~/.config/git && ln -sf ~/dotfiles/git/config ~/.config/git/config
 mkdir -p ~/.config/wofi && ln -sf ~/dotfiles/wofi/woficonfig ~/.config/wofi/config
 mkdir -p ~/.config/wofi && ln -sf ~/dotfiles/wofi/wofistyle.css ~/.config/wofi/style.css
