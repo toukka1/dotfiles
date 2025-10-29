@@ -1,8 +1,9 @@
 * {
-  font-family: Firacode Nerd;
-  font-size: 14px;
-  color: #ffffff;
-  background-color: rgba(0, 0, 0, 0);
+    border: none;
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 14px;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 #active-window {
@@ -15,7 +16,7 @@
     margin-left: 8px;
     padding-right: 16px;
     padding-left: 16px;
-    background-color: rgba(239, 241, 245, 0.9);
+    background-color: rgba(239, 241, 245, 1);
 }
 
 #hyprland-workspaces {
@@ -29,8 +30,7 @@
     margin-left: 8px;
     padding-right: 16px;
     padding-left: 16px;
-    background-color: rgba(239, 161, 29, 0.9);
-    color: #242639;
+    background-color: rgba(239, 161, 29, 1);
 }
 
 #hyprland-window {
@@ -43,8 +43,7 @@
     margin-left: 8px;
     padding-right: 16px;
     padding-left: 16px;
-    background-color: rgba(239, 161, 29, 0.9);
-    color: #242639;
+    background-color: rgba(239, 161, 29, 1);
 }
 
 #network {
@@ -57,7 +56,7 @@
     margin-left: 8px;
     padding-right: 16px;
     padding-left: 16px;
-    background-color: rgba(239, 241, 245, 0.9);
+    background-color: rgba(239, 241, 245, 1);
 }
 
 #custom-menu {
@@ -70,8 +69,8 @@
     margin-left: 8px;
     padding-right: 16px;
     padding-left: 16px;
-    background-color: rgba(239, 241, 245, 0.9);
-    color: #242639;
+    background-color: rgba(239, 241, 245, 1);
+    color: #795c34;
 }
 
 #clock {
@@ -86,8 +85,8 @@
     margin-left: 8px;
     padding-right: 16px;
     padding-left: 16px;
-    background-color: rgba(239, 241, 245, 0.9);
-    color: #242639;
+    background-color: rgba(239, 241, 245, 1);
+    color: #564e74;
 }
 
 #pulseaudio {
@@ -102,29 +101,58 @@
     margin-left: 8px;
     padding-right: 16px;
     padding-left: 16px;
-    background-color: rgba(239, 241, 245, 0.9);
-    color: #242639;
+    background-color: rgba(239, 241, 245, 1);
+    color: #e75480;
 }
 
 #custom-shutdown {
     box-shadow: none;
     text-shadow: none;
-    font-size: 24px;
+    font-size: 18px;
     border-radius: 12px;
     margin-top: 3px;
     margin-bottom: 3px;
     margin-right: 24px;
     margin-left: 8px;
     padding-right: 16px;
-    padding-left: 16px;
-    background-color: rgba(239, 241, 245, 0.9);
+    padding-left: 12px;
+    background-color: rgba(239, 241, 245, 1);
     color: #242639;
 }
 
 tooltip {
-    background-color: rgba(239, 241, 245, 0.9);
+    background-color: rgba(239, 241, 245, 1);
     color: #ffffff;
     border: 1px solid #444444;
     border-radius: 12px;
     padding: 6px;
+}
+
+
+#cpu {
+    padding-right: 16px;
+    color: #088f8f;
+}
+
+#memory {
+    padding-right: 16px;
+    color: #8b0000;
+}
+
+#temperature {
+    color: #ff8c00;
+}
+
+#sys-info {
+    box-shadow: none;
+    text-shadow: none;
+    font-weight: bold;
+    border-radius: 12px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    margin-right: 8px;
+    margin-left: 8px;
+    padding-right: 20px;
+    padding-left: 20px;
+    background-color: rgba(239, 241, 245, 1);
 }

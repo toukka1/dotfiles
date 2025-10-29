@@ -1,72 +1,101 @@
 {
-  "modules-left": ["custom/menu", "group/active-window"],
-  "modules-center": ["clock"],
-  "modules-right": ["network", "pulseaudio", "custom/shutdown"],
-  "height": 40,
+    "modules-left": ["custom/menu", "group/active-window"],
+    "modules-center": ["clock"],
+    "modules-right": ["group/sys-info", "network", "pulseaudio", "custom/shutdown"],
+    "height": 40,
 
-  "custom/menu": {
-    "format": "<b>  Menu</b>",
-    "markup": "pango",
-    "tooltip": false,
-    "on-click": "pgrep wofi >/dev/null 2>&1 && killall wofi || wofi --show drun"
-  },
+    "custom/menu": {
+        "format": "<b>  Menu</b>",
+        "markup": "pango",
+        "tooltip": false,
+        "on-click": "pgrep wofi >/dev/null 2>&1 && killall wofi || wofi --show drun"
+    },
 
-  "network": {
-      "format-ethernet": "<b><span foreground='#40a02b'>🌐  {ifname} </span></b>",
-      "format-wifi": "<b><span foreground='#40a02b'>ᯤ  {ifname} </span></b>",
-      "format-disconnected": "<b><span foreground='#d20f39'>🌐  Disconnected </span></b>",
-      "markup": "pango"
-  },
+    "network": {
+        "format-ethernet": "<b><span foreground='#40a02b'>🌐  {ifname} </span></b>",
+        "format-wifi": "<b><span foreground='#40a02b'>ᯤ  {ifname} </span></b>",
+        "format-disconnected": "<b><span foreground='#d20f39'>🌐  Disconnected </span></b>",
+        "markup": "pango"
+    },
 
-  "custom/shutdown": {
-    "format": "<span foreground='#d20f39'>⏻</span>",
-    "on-click": "systemctl poweroff",       // Left-click shutdown
-    "on-click-right": "systemctl reboot",   // Right-click rebeoot
-    "tooltip": true,
-    "tooltip-format": "Left-click: Power off\nRight-click: Reboot"
-  },
+    "custom/shutdown": {
+        "format": "<span foreground='#d20f39'></span>",
+        "on-click": "systemctl poweroff",       // Left-click shutdown
+        "on-click-right": "systemctl reboot",   // Right-click rebeoot
+    },
 
-  "pulseaudio": {
-    "format": "<b><span foreground='#dc8a78'>🔊 {volume}</span></b>",
-    "markup": "pango",
-    "tooltip": false,
-    "on-click": "pgrep pavucontrol >/dev/null 2>&1 && killall pavucontrol || pavucontrol &"
-  },
+    "pulseaudio": {
+        "format": "<b><span>🔊 {volume}</span></b>",
+        "markup": "pango",
+        "tooltip": false,
+        "on-click": "pgrep pavucontrol >/dev/null 2>&1 && killall pavucontrol || pavucontrol &"
+    },
 
-  "clock": {
-      "format": "<b><span foreground='#dc8a78'>   {:%H:%M   󰃭  %a %d}</span></b>",
-      "markup": "pango",
-      "rotate": 0,
-      "tooltip-format": "<tt><small>{calendar}</small></tt>",
-      "calendar": {
-          "mode": "month",
-          "format": {
-              "months": "<span color='#4c4f69'><b>{}</b></span>",
-              "days": "<span color='#4c4f69'><b>{}</b></span>",
-              "weekdays": "<span color='#4c4f69'><b>{}</b></span>",
-              "today": "<span color='#d20f39'><b>{}</b></span>"
-          }
-      }
-  },
+    "clock": {
+        "format": "<b><span>  {:%H:%M  󰃭  %a %d}</span></b>",
+        "markup": "pango",
+        "rotate": 0,
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode": "month",
+            "format": {
+                "months": "<span color='#4c4f69'><b>{}</b></span>",
+                "days": "<span color='#4c4f69'><b>{}</b></span>",
+                "weekdays": "<span color='#4c4f69'><b>{}</b></span>",
+                "today": "<span color='#d20f39'><b>{}</b></span>"
+            }
+        }
+    },
 
-  "hyprland/workspaces": {
-      "format": "<b><span foreground='#5a5a8c'>{id}</span></b>",
-      "markup": "pango",
-      "active-only": true,
-      "show-special": false,
-      "tooltip": false
-  },
+    "hyprland/workspaces": {
+        "format": "<b><span foreground='#ebbcba'>{id}</span></b>",
+        "markup": "pango",
+        "active-only": true,
+        "show-special": false,
+        "tooltip": false
+    },
 
-  "hyprland/window": {
-      "format": "<b><span foreground='#5a5a8c'>{class}</span></b>",
-      "markup": "pango",
-  },
+    "hyprland/window": {
+        "format": "<b><span foreground='#ebbcba'>{class}</span></b>",
+        "markup": "pango",
+    },
 
-  "group/active-window": {
-      "orientation": "horizontal",
-      "modules": [
-        "hyprland/workspaces",
+    "group/active-window": {
+        "orientation": "horizontal",
+        "modules": [
+            "hyprland/workspaces",
         "hyprland/window"
-      ]
-  }
+        ]
+    },
+
+    "cpu": {
+        "interval": 10,
+        "format": "󰍛 {usage}%",
+        "format-alt": "{icon0}{icon1}{icon2}{icon3}",
+        "format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
+    },
+
+    "memory": {
+        "interval": 30,
+        "format": "󰾆 {percentage}%",
+        "format-alt": "󰾅 {used}GB",
+        "max-length": 30,
+        "tooltip": true,
+        "tooltip-format": " {used:0.1f}GB/{total:0.1f}GB"
+    },
+
+    "temperature": {
+        "thermal-zone": 2,
+        "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input",
+        "format": "{temperatureC}°C "
+    },
+
+    "group/sys-info": {
+        "orientation": "horizontal",
+        "modules": [
+            "cpu",
+            "memory",
+            "temperature",
+        ]
+    },
 }
