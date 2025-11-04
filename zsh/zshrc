@@ -62,7 +62,7 @@ bindkey '^g' fzf_file_home_cd
 # Fuzzy find files in current dir
 fzf_file_curr_cd() {
     local file
-    file=$( (echo "${PWD}" && fd --type f --hidden $EXCLUDES . "${PWD}") | fzf) || return 1
+    file=$( (echo "${PWD}" && fd --type f --hidden --no-ignore $EXCLUDES . "${PWD}") | fzf) || return 1
     if [ -n "$file" ]; then
         cd "$(dirname "$file")"
     fi
